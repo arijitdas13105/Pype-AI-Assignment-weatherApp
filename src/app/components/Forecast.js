@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { kelvinToCelsius } from "../Utils/UtilityFunctions";
+import { kelvinToCelsius,kelvinToFahrenheit,renderTemperature } from "../Utils/UtilityFunctions";
 
-const Forecast = () => {
+const Forecast = ({temp}) => {
     const forecastData = useSelector(state => state.weather.foreCast);
     console.log(forecastData);
   return (
@@ -18,7 +18,8 @@ const Forecast = () => {
             { weekday: "long" }
           )}
         </h3>
-        <h3 className="text-xl">  {kelvinToCelsius(forecast.temp_max)}° </h3>
+        {/* <h3 className="text-xl">  {kelvinToCelsius(forecast.temp_max)}° </h3> */}
+        <h3 className="text-xl">  {renderTemperature(forecast.temp_max, temp)} </h3>
         <h3 className="text-[7px]">
           {forecast.description}
           {/* {forecast.temp_max} */}

@@ -1,13 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
-import { kelvinToCelsius } from "../Utils/UtilityFunctions";
+import { kelvinToCelsius,kelvinToFahrenheit,renderTemperature } from "../Utils/UtilityFunctions";
 
-const WeatherDetails = () => {
+const WeatherDetails = ({ temp }) => {
   const weatherr = useSelector((store) => store.weather);
-if (!weatherr) {
+  if (!weatherr) {
     return null; // Render nothing if weather data is not available
   }
+
+  // const renderTemperature = (temperature) => {
+  //   if (temp === "celsius") {
+  //     return kelvinToCelsius(temperature) + "°C";
+  //   } else {
+  //     return kelvinToFahrenheit(temperature) + "°F";
+  //   }
+  // };
   return (
     <div className="flex flex-col h-[50%] gap-14 ">
       {/* {Object.keys(searchResults).length > 0 && ( */}
@@ -19,9 +27,18 @@ if (!weatherr) {
             height="30"
             style={{ color: "#f2ab31" }}
           />
+          {/* <h1>{temp}</h1> */}
+
           <h1>feeels like </h1>
+
+         
           {/* <h1> {weatherr.feels_like} °</h1> */}
-          <h1> {kelvinToCelsius(weatherr.feels_like)}° c</h1>
+
+          <h1>{renderTemperature(weatherr.feels_like, temp)}</h1>
+
+          {/* <h1> {kelvinToCelsius(weatherr.feels_like)}° c</h1> */}
+
+
           {/* <h1>{searchResults && searchResults.main.feels_like}°</h1> */}
           {/* <h1>{searchResults ? searchResults.main.feels_like : 0}°</h1> */}
         </div>
@@ -34,7 +51,9 @@ if (!weatherr) {
           />{" "}
           <h1>High temp</h1>
           {/* <h1>{searchResults.main.temp_max}°</h1> */}
-          <h1> {kelvinToCelsius(weatherr.high_temp)}° c</h1>
+          {/* <h1> {kelvinToCelsius(weatherr.high_temp)}° c</h1> */}
+          <h1>{renderTemperature(weatherr.high_temp, temp)} </h1>
+
         </div>
         <div className="flex gap-10">
           <Icon
@@ -45,7 +64,8 @@ if (!weatherr) {
           />{" "}
           <h1>Low temp</h1>
           {/* <h1>{searchResults.main.temp_min}°</h1> */}
-          <h1> {kelvinToCelsius(weatherr.low_temp)}° c</h1>
+          {/* <h1> {kelvinToCelsius(weatherr.low_temp)}° c</h1> */}
+          <h1>{renderTemperature(weatherr.low_temp, temp)} </h1>
 
         </div>
         <div className="flex gap-10">
@@ -59,7 +79,6 @@ if (!weatherr) {
           <h1>Humidity</h1>
           {/* <h1>{searchResults.main.humidity}°</h1> */}
           <h1> {weatherr.humidity}%</h1>
-
         </div>
       </>
       {/* )} */}
